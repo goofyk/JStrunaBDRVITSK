@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="ConsoleApp">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/launch4j/demo/ConsoleApp/ConsoleApp.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

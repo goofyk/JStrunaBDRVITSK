@@ -1,0 +1,24 @@
+2018-10-06 18:29:41 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Таблица "MATCHSTRUNABDRV" не найдена
+Table "MATCHSTRUNABDRV" not found; SQL statement:
+DROP TABLE MatchStrunaBDRV; [42102-197]
+2018-10-06 18:29:48 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Таблица "MATCHSTRUNABDRV" не найдена
+Table "MATCHSTRUNABDRV" not found; SQL statement:
+DROP TABLE MatchStrunaBDRV; [42102-197]
+2018-10-06 18:30:09 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Таблица "MATCHSTRUNABDRV" не найдена
+Table "MATCHSTRUNABDRV" not found; SQL statement:
+DROP TABLE MatchStrunaBDRV; [42102-197]
+2018-10-06 18:38:42 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Таблица "MATCHSTRUNABDRV" не найдена
+Table "MATCHSTRUNABDRV" not found; SQL statement:
+DROP TABLE MatchStrunaBDRV; [42102-197]
+2018-10-06 18:38:50 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Таблица "MATCHSTRUNABDRV" не найдена
+Table "MATCHSTRUNABDRV" not found; SQL statement:
+DROP TABLE MatchStrunaBDRV; [42102-197]
+2018-10-06 18:40:02 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Таблица "MATCHSTRUNABDRV" не найдена
+Table "MATCHSTRUNABDRV" not found; SQL statement:
+DROP TABLE MatchStrunaBDRV; [42102-197]

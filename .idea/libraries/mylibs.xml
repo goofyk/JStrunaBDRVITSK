@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="mylibs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/mylibs/mssql-jdbc-7.0.0.jre8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/mylibs/jaybird-full-3.0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/mylibs/sqlite-jdbc-3.16.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/mylibs/nio.jar!/" />
+      <root url="jar://$PROJECT_DIR$/mylibs/jdpapi-java-1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
