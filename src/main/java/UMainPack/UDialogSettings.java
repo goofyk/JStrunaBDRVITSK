@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class UDialogSettings extends JDialog {
     private JPanel contentPane;
@@ -28,6 +30,9 @@ public class UDialogSettings extends JDialog {
     private JButton createEXEButton;
     private JTextField PathToFileOfService;
     private JTextField EncodingStruna;
+    private JButton btnCheckConnectBDRV;
+    private JButton btnCheckConnectStruna;
+    private JTextField IdTZK;
 
     private static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     private static int sizeWidth = 800;
@@ -58,16 +63,18 @@ public class UDialogSettings extends JDialog {
         buttonCancel.addActionListener(e -> onCancel());
         createEXEButton.addActionListener(e -> createExeService());
 
+        btnCheckConnectBDRV.addActionListener(e -> checkConnect(new UBDRV().getConnection()));
+        btnCheckConnectStruna.addActionListener(e -> checkConnect(new UStruna().getConnection()));
     }
 
     private void onOK() {
         saveProperties();
         this.dispose();
-    }
+    };
 
     private void onCancel() {
         this.dispose();
-    }
+    };
 
     private void createExeService(){
         try {
@@ -95,6 +102,9 @@ public class UDialogSettings extends JDialog {
 
     private void saveProperties() {
 
+        // id TZK
+        UProperties.setProperty("IdTZK", IdTZK.getText());
+
         // BDRV
         UProperties.setProperty("ServerNameBDRV", ServerNameBDRV.getText());
         UProperties.setProperty("ServerPortBDRV", ServerPortBDRV.getText());
@@ -117,9 +127,12 @@ public class UDialogSettings extends JDialog {
         UProperties.setProperty("IntervalScheduler", IntervalScheduler.getText());
         UProperties.setProperty("PathToFileOfService", PathToFileOfService.getText());
 
-    }
+    };
 
     private void loadProperties(){
+
+        // ID TZK
+        IdTZK.setText(UProperties.getProperty("IdTZK"));
 
         // BDRV
         ServerNameBDRV.setText(UProperties.getProperty("ServerNameBDRV"));
@@ -139,6 +152,22 @@ public class UDialogSettings extends JDialog {
         IntervalScheduler.setText(UProperties.getProperty("IntervalScheduler"));
         PathToFileOfService.setText(UProperties.getProperty("PathToFileOfService"));
 
-    }
+    };
+
+    private void checkConnect(Connection connection){
+        String textConfirm = "Connection successfully established";
+        int gradeMess = JOptionPane.INFORMATION_MESSAGE;
+        if(connection == null){
+            textConfirm = "Connection not established!";
+            gradeMess = JOptionPane.ERROR_MESSAGE;
+        }else {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        JOptionPane.showMessageDialog(this, textConfirm, "Message",gradeMess);
+    };
 
 }

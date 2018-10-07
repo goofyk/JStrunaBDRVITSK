@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.sql.ResultSet;
 
 public class UFormMain extends JFrame{
 
@@ -27,13 +28,15 @@ public class UFormMain extends JFrame{
     private JButton loadDataButton;
     private JPanel panelCommandJR;
     private JCheckBox checkBoxAutoUpdate;
+    private JFormattedDateTextField firstdattim;
+    private JFormattedDateTextField lastdattim;
 
     private String nameOfService = "StrunaBDRV";
     private String pathRoot = System.getProperty("user.dir");
     private String pathToFileOfService = pathRoot + "\\service\\Service.exe";
     private Timer timer = null;
 
-    public UFormMain() {
+    UFormMain() {
 
         super("Struna - BDRV");
         setSize(new Dimension(1020, 720));
@@ -64,8 +67,13 @@ public class UFormMain extends JFrame{
 
         container.add(JPanelMain);
 
+        loadDataButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadDataFromStrunaToBDRV();
+            }
+        });
     }
-
 
     /**
      *  HANDLER LISTENERS
@@ -167,6 +175,19 @@ public class UFormMain extends JFrame{
         }else{
             timer.stop();
         }
+    }
+
+    private void loadDataFromStrunaToBDRV() {
+        UStruna uStruna = new UStruna();
+        java.sql.Timestamp tmstmpFirstDattim = java.sql.Timestamp.valueOf(firstdattim.getText());
+        java.sql.Timestamp tmstmpLastDattim = java.sql.Timestamp.valueOf(lastdattim.getText());
+        String typeObj = "0";
+        ResultSet rsStruna = uStruna.get_params_all(tmstmpFirstDattim, tmstmpLastDattim, typeObj);
+        if(rsStruna == null){
+            ULogger.log.error("Не удалось получить данные из базы Струна. Проверьте подключение и попробуйте повторить попытку.");
+            return;
+        }
+        UBDRV uBdrv = new UBDRV();
     }
 
 }
