@@ -1,6 +1,4 @@
-package UServicePack;
-
-import UMainPack.UProperties;
+package UMainPack;
 
 import java.io.*;
 import java.util.*;

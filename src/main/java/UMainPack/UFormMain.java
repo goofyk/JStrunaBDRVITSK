@@ -4,13 +4,14 @@ import javax.swing.*;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.ResultSet;
 
+import static UMainPack.ULogger.log;
+
 public class UFormMain extends JFrame{
 
-    public static JFrame mainForm = new UFormMain();
+    //public static JFrame mainForm = new UFormMain();
 
     private JTable UTableLog;
     private JButton btnInstallService;
@@ -23,7 +24,7 @@ public class UFormMain extends JFrame{
     private JPanel JPanelMain;
     private JPanel panelTable;
     private JButton addMatchesButton;
-    private JProgressBar progressBar;
+    private JProgressBar progressBarLoad;
     private JPanel panelProgressBar;
     private JButton loadDataButton;
     private JPanel panelCommandJR;
@@ -46,7 +47,7 @@ public class UFormMain extends JFrame{
 //        setUndecorated(true);
         Container container = getContentPane();
 
-        ULogger.log.debug("This is debug : " + UCommon.currentTime());
+        //ULogger.log.error("This is debug : " + UCommon.currentTime());
 
         JTableHeader header = UTableLog.getTableHeader();
         panelTable.add(header, BorderLayout.NORTH);
@@ -67,12 +68,7 @@ public class UFormMain extends JFrame{
 
         container.add(JPanelMain);
 
-        loadDataButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                loadDataFromStrunaToBDRV();
-            }
-        });
+        loadDataButton.addActionListener(e -> loadDataFromStrunaToBDRV());
     }
 
     /**
@@ -147,7 +143,6 @@ public class UFormMain extends JFrame{
     };
 
     private void updateTableLogs(int countTop){
-
         UTableLog.setModel(USqlite.getBuildTableModel(USqlite.getAllDataLogs(0)));
     };
 
@@ -184,11 +179,24 @@ public class UFormMain extends JFrame{
         String typeObj = "0";
         ResultSet rsStruna = uStruna.get_params_all(tmstmpFirstDattim, tmstmpLastDattim, typeObj);
         if(rsStruna == null){
-            ULogger.log.error("Не удалось получить данные из базы Струна. Проверьте подключение и попробуйте повторить попытку.");
+            log.error("Не удалось получить данные из базы Струна. Проверьте подключение и попробуйте повторить попытку.");
             return;
         }
         UBDRV uBdrv = new UBDRV();
+        uBdrv.sp_msr_value_send(rsStruna);
     }
+
+    public void setProgressBarLoadValue(int value){
+        progressBarLoad.setValue(value);
+    };
+
+    public void setEnableBtnloadDataButton(){
+        if(!loadDataButton.isEnabled())loadDataButton.setEnabled(true);
+    };
+
+    public void setDisableBtnloadDataButton(){
+        if(loadDataButton.isEnabled())loadDataButton.setEnabled(false);
+    };
 
 }
 

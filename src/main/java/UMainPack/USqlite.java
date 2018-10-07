@@ -5,6 +5,8 @@ import javax.swing.table.TableModel;
 import java.sql.*;
 import java.util.Vector;
 
+import static UMainPack.ULogger.*;
+
 public class USqlite {
 
     final static String fileName = "./DB/ULogs.db";
@@ -100,7 +102,7 @@ public class USqlite {
 
     public static ResultSet getAllDataLogs(int countTop) {
         if(countTop == 0) countTop = 200;
-        String sql = "SELECT * FROM LOGS LIMIT " + countTop;
+        String sql = new String("SELECT LOGS.DATED, LOGS.LEVEL, LOGS.MESSAGE  FROM LOGS AS LOGS LIMIT " + countTop);
         Statement stmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -116,7 +118,7 @@ public class USqlite {
 //                        rs.getString("MESSAGE"));
 //            }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            log.error(e.getMessage());
         }
         return rs;
     }

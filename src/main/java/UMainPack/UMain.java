@@ -4,10 +4,13 @@ import org.apache.log4j.PropertyConfigurator;
 
 public class UMain {
 
+    static UFormMain mainForm;
+
     public static void main(String[] args) {
         PropertyConfigurator.configure("ULogger.properties");
         UProperties.loadProperties();
-        UFormMain.mainForm.setVisible(true);
+        mainForm = new UFormMain();
+        mainForm.setVisible(true);
         //((UFormMain) UFormMain.mainForm).hideProgressBar();
     }
 

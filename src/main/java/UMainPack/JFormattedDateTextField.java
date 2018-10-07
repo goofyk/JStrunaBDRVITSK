@@ -12,13 +12,13 @@ import java.util.Date;
 
 class JFormattedDateTextField extends JFormattedTextField {
 
-    Format format = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss");
+    Format format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public JFormattedDateTextField() {
         super();
         MaskFormatter maskFormatter = null;
         try {
-            maskFormatter = new MaskFormatter("##.##.#### ##:##:##");
+            maskFormatter = new MaskFormatter("####-##-## ##:##:##");
         } catch (ParseException e) {
             e.printStackTrace();
         }

@@ -9,7 +9,9 @@ public class UEmbeddedDB {
         connect();
         createTableUsers();
         createTableMatchStrunaBDRV();
-        insertAdminDataToDB();
+        //insertAdminDataToDB();
+        createTableDateTimeLoad();
+        getLastDateTimeLoad();
         showData();
     }
 
@@ -19,7 +21,8 @@ public class UEmbeddedDB {
     static final String USER = "sa";
     static final String PASS = "123123";
     private static Connection conn = null;
-    private static final String TABLE_MATCHES_ID = "MatchesIdStrunaBDRV";
+    static final String TABLE_MATCHES_ID = "MatchesIdStrunaBDRV";
+    static final String TABLE_DATETIME_LOAD = "DateTimeLoad";
 
     public static boolean execute(String querySql){
         boolean rs = true;
@@ -57,6 +60,14 @@ public class UEmbeddedDB {
                 "    STRUNA_ID_OBJ VARCHAR(25)    NOT NULL,\n" +
                 "    STRUNA_P_NAME  VARCHAR(25)    NOT NULL,\n" +
                 "    BDRV_P_MSD_ID VARCHAR(25)\n" +
+                "   );");
+        execute(sql);
+    }
+
+    public static void createTableDateTimeLoad() {
+        String sql = new String("CREATE TABLE IF NOT EXISTS " + TABLE_DATETIME_LOAD + "(\n" +
+                "    ID INT    PRIMARY KEY AUTO_INCREMENT,\n" +
+                "    DATETIMELOAD  TIMESTAMP    NOT NULL,\n" +
                 "   );");
         execute(sql);
     }
@@ -131,6 +142,21 @@ public class UEmbeddedDB {
         }
     }
 
+    public static void insertDataToTableDateTimeLoad(Timestamp dateTimeLoad) {
+        try{
+            conn.setAutoCommit(false);
+            String sql = "INSERT INTO " + TABLE_DATETIME_LOAD + "(DATETIMELOAD) VALUES (?)";
+            PreparedStatement pst = conn.prepareStatement(sql);
+            pst.setTimestamp(1, dateTimeLoad);
+            pst.addBatch();
+            pst.executeBatch();
+            conn.commit();
+        }catch(SQLException e){
+            ULogger.log.error(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     public static void cleareTableMatchesId(){
         cleareTable(TABLE_MATCHES_ID);
     };
@@ -141,15 +167,29 @@ public class UEmbeddedDB {
     }
 
     public static ResultSet getAllDataMatches() {
-        String sql = "SELECT * FROM MatchesIdStrunaBDRV";
+        String sql = "SELECT * FROM " + TABLE_MATCHES_ID;
         ResultSet rs = executeQuery(sql);
         return rs;
+    }
+
+    public static Timestamp getLastDateTimeLoad() {
+        String sql = "SELECT * FROM " + TABLE_DATETIME_LOAD;
+        ResultSet rs = executeQuery(sql);
+        Timestamp lastDateTime = new Timestamp(System.currentTimeMillis());
+        try {
+            rs.last();
+            lastDateTime = rs.getTimestamp(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lastDateTime;
     }
 
     static {
         connect();
         createTableUsers();
         createTableMatchStrunaBDRV();
+        createTableDateTimeLoad();
     }
 
 }

@@ -156,7 +156,8 @@
                     <constraints/>
                     <properties>
                       <autoCreateRowSorter value="true"/>
-                      <autoResizeMode value="4"/>
+                      <autoResizeMode value="1"/>
+                      <fillsViewportHeight value="true"/>
                     </properties>
                   </component>
                 </children>
@@ -191,30 +192,30 @@
                   <toolTipText value="Ручная загрузка данных из базы Струна в базу БДРВ"/>
                 </properties>
               </component>
-              <component id="34779" class="UMainPack.JFormattedDateTextField" binding="firstdattim">
-                <constraints>
-                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <enabled value="true"/>
-                  <text value="__.__.____ 00:00:00" noi18n="true"/>
-                </properties>
-              </component>
-              <component id="b7352" class="UMainPack.JFormattedDateTextField" binding="lastdattim">
-                <constraints>
-                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
-                </constraints>
-                <properties>
-                  <text value="__.__.____ 23:59:59" noi18n="true"/>
-                </properties>
-              </component>
-              <component id="b5db6" class="javax.swing.JProgressBar" binding="progressBar">
+              <component id="b5db6" class="javax.swing.JProgressBar" binding="progressBarLoad">
                 <constraints>
                   <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <indeterminate value="true"/>
+                  <indeterminate value="false"/>
                   <stringPainted value="true"/>
+                </properties>
+              </component>
+              <component id="9cb7e" class="UMainPack.JFormattedDateTextField" binding="firstdattim">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <horizontalAlignment value="2"/>
+                  <text value="" noi18n="true"/>
+                </properties>
+              </component>
+              <component id="e78e4" class="UMainPack.JFormattedDateTextField" binding="lastdattim">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="" noi18n="true"/>
                 </properties>
               </component>
             </children>

@@ -13,11 +13,14 @@ public class UStruna {
     private Connection conn = null;
 
     UStruna(){
-        conn = getConnection();
+        connect();
     }
 
-    public Connection getConnection(){
-        Connection connection = null;
+    public Connection getConnection() {
+        return conn;
+    };
+
+    private boolean connect() {
         try{
             String Server = UProperties.getProperty("ServerNameStruna");
             String Port = UProperties.getProperty("ServerPortStruna");
@@ -26,14 +29,11 @@ public class UStruna {
             props.setProperty("user", UProperties.getProperty("UsernameStruna"));
             props.setProperty("password", UProperties.getProperty("PasswordStruna"));
             props.setProperty("encoding", UProperties.getProperty("EncodingStruna"));
-            connection = DriverManager.getConnection(
-                    "jdbc:firebirdsql://" + Server + ":" + Port + "/" + PathToDB,
-                    props);
-            return connection;
+            conn = DriverManager.getConnection("jdbc:firebirdsql://" + Server + ":" + Port + "/" + PathToDB, props);
         }catch (SQLException e){
             e.printStackTrace();
         }
-        return connection;
+        return conn != null;
     }
 
     public ResultSet getDataStruna(Connection connection){
@@ -64,7 +64,9 @@ public class UStruna {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
-            pstmt = conn.prepareStatement(UQuery.Q_GET_ALL_DATA_STRUNA);
+            pstmt = conn.prepareStatement(UQuery.Q_GET_ALL_DATA_STRUNA,
+                                        ResultSet.TYPE_SCROLL_INSENSITIVE,
+                                        ResultSet.CONCUR_READ_ONLY);
             pstmt.setTimestamp(1, first_dattim);
             pstmt.setTimestamp(2, last_dattim);
             pstmt.setString(3, type_obj);
@@ -79,7 +81,7 @@ public class UStruna {
 //                String P_MSD_ID  = rs.getString("P_MSD_ID");
 //                System.out.println("P_MSD_ID: " + P_MSD_ID);
 //            }
-            rs.close();
+            //rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

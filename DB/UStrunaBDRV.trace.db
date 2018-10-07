@@ -22,3 +22,9 @@ DROP TABLE MatchStrunaBDRV; [42102-197]
 org.h2.jdbc.JdbcSQLException: Таблица "MATCHSTRUNABDRV" не найдена
 Table "MATCHSTRUNABDRV" not found; SQL statement:
 DROP TABLE MatchStrunaBDRV; [42102-197]
+2018-10-07 23:23:11 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Нет данных
+No data is available [2000-197]
+2018-10-07 23:43:53 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLException: Нет данных
+No data is available [2000-197]
